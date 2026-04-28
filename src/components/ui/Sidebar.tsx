@@ -32,12 +32,12 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       )}
 
       {/* Sidebar */}
-      <aside className={`
-        fixed inset-y-0 left-0 z-30 w-52 bg-[#161b27] border-r border-slate-700 flex flex-col flex-shrink-0
-        transform transition-transform duration-200
-        ${open ? 'translate-x-0' : '-translate-x-full'}
-        md:relative md:translate-x-0 md:z-auto
-      `}>
+      <aside className={
+        'fixed inset-y-0 left-0 z-30 w-52 bg-[#161b27] border-r border-slate-700 flex flex-col flex-shrink-0' +
+        ' transform transition-transform duration-200' +
+        (open ? ' translate-x-0' : ' -translate-x-full') +
+        ' md:relative md:translate-x-0 md:z-auto'
+      }>
         <div className="px-4 py-5 border-b border-slate-700 flex items-center justify-between">
           <div>
             <h2 className="text-xs font-bold text-blue-400 uppercase tracking-widest">India Importer</h2>
@@ -59,13 +59,12 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 key={item.href}
                 href={item.href}
                 onClick={onClose}
-                className={`
-                  w-full flex items-center gap-2.5 px-4 py-2 text-sm transition-all border-l-[3px]
-                  ${isActive
-                    ? 'bg-blue-500/10 text-blue-400 border-blue-500'
-                    : 'text-slate-400 border-transparent hover:bg-blue-500/5 hover:text-slate-200'
-                  }
-                `}
+                className={
+                  'w-full flex items-center gap-2.5 px-4 py-2 text-sm transition-all border-l-[3px]' +
+                  (isActive
+                    ? ' bg-blue-500/10 text-blue-400 border-blue-500'
+                    : ' text-slate-400 border-transparent hover:bg-blue-500/5 hover:text-slate-200')
+                }
               >
                 <span className="text-base w-4 text-center">{item.icon}</span>
                 <span className="flex-1 text-left">{item.label}</span>
