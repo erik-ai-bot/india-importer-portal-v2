@@ -1,0 +1,135 @@
+import type {
+  KPICard, Alert, BOMRow, SupplierGeo,
+  Invoice, SCFRow, MarginTrend, PricingGap, CreditTrend
+} from '@/types';
+
+export const dashboardKPIs: KPICard[] = [
+  { label: 'Gross Margin', value: '32.4%', sub: '▼ 2.6% from target', variant: 'good' },
+  { label: 'Pricing Gap', value: '−€84K', sub: '▼ Negative — review needed', variant: 'alert' },
+  { label: 'Credit Line Used', value: '€3.2M', sub: 'of €5.0M total (64%)', variant: 'warning' },
+  { label: 'Active POs', value: '142', sub: '8 stalled >10d', variant: 'default' },
+];
+
+export const scfKPIs: KPICard[] = [
+  { label: 'Held Payments', value: '2', sub: 'Quality claim holds', variant: 'alert' },
+  { label: 'Pending Approvals', value: '3', sub: 'SCF financing requests', variant: 'default' },
+  { label: 'Credit Line Used', value: '€3.2M / €5.0M', sub: '64% utilised', variant: 'warning' },
+  { label: 'Available Headroom', value: '€1.8M', sub: '36% remaining', variant: 'good' },
+];
+
+export const marginKPIs: KPICard[] = [
+  { label: 'Pricing Gap (Total)', value: '−€84K', sub: '▼ Exceeds −5% threshold', variant: 'alert' },
+  { label: 'Current Gross Margin', value: '32.4%', sub: 'Target: 35.0%', variant: 'warning' },
+  { label: 'Required Price Hike', value: '+3.8%', sub: 'to restore 35% GM', variant: 'default' },
+  { label: 'RM Cost Index', value: '108.4', sub: '▲ +8.4% YoY', variant: 'default' },
+];
+
+export const geoKPIs: KPICard[] = [
+  { label: 'China Exposure', value: '82%', sub: '▼ Single-point risk', variant: 'alert' },
+  { label: 'EUR/CNY Delta', value: '+4.2%', sub: 'vs 12-month avg', variant: 'warning' },
+  { label: 'Sea vs Rail Delta', value: '€+180/TEU', sub: 'Sea cheaper currently', variant: 'default' },
+  { label: 'Pakistan Shift Target', value: '15%', sub: 'Recommended rebalance', variant: 'good' },
+];
+
+export const alerts: Alert[] = [
+  {
+    id: '1',
+    title: '🔴 Margin Guard — Bedding Category',
+    body: 'Replacement cost (€24.10) exceeds contracted cost (€22.40) by 7.2% — above the 5% threshold. Current retail prices no longer support the 35% Gross Margin target due to upstream linen inflation.',
+    severity: 'critical',
+    actions: ['Trigger Price Review', 'Reduce Promotions', 'Snooze 7d'],
+  },
+  {
+    id: '2',
+    title: '🔴 Financial Stall — 8 POs Flagged',
+    body: '8 purchase orders have been in "Issued" status for more than 10 days with 0% raw material progress recorded. Lead indicator of hidden liquidity stress at factory level.',
+    severity: 'critical',
+    actions: ['Offer SCF Drawdown', 'View POs', 'Contact Suppliers'],
+  },
+  {
+    id: '3',
+    title: '⚠ Sourcing Continuity — Hengli Textiles',
+    body: 'Total active PO value for Hengli Textiles is 34% above their historical 6-month average output. High risk of Working Capital Exhaustion.',
+    severity: 'warning',
+    actions: ['Offer SCF to Hengli', 'Review PO Volume', 'Snooze 14d'],
+  },
+  {
+    id: '4',
+    title: '⚠ Geo-Financial — China Concentration at 82%',
+    body: 'EUR spend concentration in China has reached 82% while Country Risk Trinity shows rising FX volatility (+4.2%), wage inflation (+6.2%), and elevated geopolitical risk.',
+    severity: 'warning',
+    actions: ['Initiate Sourcing Shift Plan', 'Onboard Pakistan Banks', 'View Geo Report'],
+  },
+];
+
+export const bomData: BOMRow[] = [
+  { category: 'Bedding', material: 'Linen', rmWeight: '85%', contractCost: '€22.40', replacementCost: '€24.10', pricingGap: -7.2, requiredHike: '+4.2%' },
+  { category: 'Towels', material: 'Cotton', rmWeight: '78%', contractCost: '€8.60', replacementCost: '€9.10', pricingGap: -5.5, requiredHike: '+3.1%' },
+  { category: 'Cushions', material: 'Polyester', rmWeight: '60%', contractCost: '€6.20', replacementCost: '€6.30', pricingGap: -1.6, requiredHike: '+0.9%' },
+  { category: 'Curtains', material: 'Velvet', rmWeight: '90%', contractCost: '€18.00', replacementCost: '€17.80', pricingGap: 1.1, requiredHike: '—' },
+  { category: 'Rugs', material: 'Wool', rmWeight: '70%', contractCost: '€34.00', replacementCost: '€34.40', pricingGap: -1.2, requiredHike: '+0.7%' },
+];
+
+export const supplierGeo: SupplierGeo[] = [
+  { country: 'China', percentage: 82, wageInflation: '+6.2%', fxDelta: '+4.2%', geopolitical: 'High', risk: 'Critical' },
+  { country: 'India', percentage: 6, wageInflation: '+3.1%', fxDelta: '+2.1%', geopolitical: 'Low', risk: 'Medium' },
+  { country: 'Pakistan', percentage: 4, wageInflation: '+2.8%', fxDelta: '+1.4%', geopolitical: 'Medium', risk: 'Low' },
+  { country: 'Vietnam', percentage: 3, wageInflation: '+4.0%', fxDelta: '+0.8%', geopolitical: 'Low', risk: 'Medium' },
+  { country: 'Bangladesh', percentage: 3, wageInflation: '+2.2%', fxDelta: '+3.0%', geopolitical: 'Low', risk: 'Medium' },
+];
+
+export const invoices: Invoice[] = [
+  { id: 'INV-2026-0882', supplier: 'Hengli Textiles', poRef: 'PO-0441', amount: '€280,000', dueDate: 'Apr 2', status: 'Pending', scf: 'Eligible' },
+  { id: 'INV-2026-0791', supplier: 'BlueStar Fabrics', poRef: 'PO-0389', amount: '€145,000', dueDate: 'Mar 28', status: 'Overdue', scf: 'Eligible' },
+  { id: 'INV-2026-0744', supplier: 'SilkRoute Co.', poRef: 'PO-0368', amount: '€67,500', dueDate: 'Mar 20', status: 'On Hold', scf: 'N/A' },
+  { id: 'INV-2026-0701', supplier: 'PakCraft Ltd', poRef: 'PO-0412', amount: '€92,000', dueDate: 'Apr 10', status: 'Approved', scf: 'Active' },
+  { id: 'INV-2026-0698', supplier: 'VietSew Factory', poRef: 'PO-0399', amount: '€54,200', dueDate: 'Apr 5', status: 'Processing', scf: 'N/A' },
+];
+
+export const scfSuppliers: SCFRow[] = [
+  { supplier: 'Hengli Textiles', amount: 680, amountLabel: '€680K' },
+  { supplier: 'Zara Home Supply', amount: 390, amountLabel: '€390K' },
+  { supplier: 'PakCraft Ltd', amount: 270, amountLabel: '€270K' },
+  { supplier: 'BlueStar Fabrics', amount: 145, amountLabel: '€145K' },
+  { supplier: 'Others', amount: 500, amountLabel: '€500K' },
+];
+
+export const marginTrend: MarginTrend[] = [
+  { month: 'Oct', margin: 35.4, target: 35 },
+  { month: 'Nov', margin: 34.8, target: 35 },
+  { month: 'Dec', margin: 34.1, target: 35 },
+  { month: 'Jan', margin: 33.6, target: 35 },
+  { month: 'Feb', margin: 32.9, target: 35 },
+  { month: 'Mar', margin: 32.4, target: 35 },
+];
+
+export const pricingGaps: PricingGap[] = [
+  { category: 'Bedding', gap: -7.2 },
+  { category: 'Towels', gap: -5.5 },
+  { category: 'Cushions', gap: -1.6 },
+  { category: 'Curtains', gap: 1.1 },
+  { category: 'Rugs', gap: -1.2 },
+];
+
+export const creditTrend: CreditTrend[] = [
+  { month: 'Oct', used: 2.1, limit: 5 },
+  { month: 'Nov', used: 2.4, limit: 5 },
+  { month: 'Dec', used: 2.8, limit: 5 },
+  { month: 'Jan', used: 3.0, limit: 5 },
+  { month: 'Feb', used: 3.1, limit: 5 },
+  { month: 'Mar', used: 3.2, limit: 5 },
+];
+
+export const geoChartData = supplierGeo.map(s => ({
+  name: s.country,
+  value: s.percentage,
+}));
+
+export const scfUtilizationTrend = [
+  { month: 'Oct', utilized: 1.98, headroom: 3.02, pct: 39.6 },
+  { month: 'Nov', utilized: 2.15, headroom: 2.85, pct: 43.0 },
+  { month: 'Dec', utilized: 2.60, headroom: 2.40, pct: 52.0 },
+  { month: 'Jan', utilized: 2.85, headroom: 2.15, pct: 57.0 },
+  { month: 'Feb', utilized: 3.10, headroom: 1.90, pct: 62.0 },
+  { month: 'Mar', utilized: 3.20, headroom: 1.80, pct: 64.0 },
+];
