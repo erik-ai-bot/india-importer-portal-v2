@@ -1,0 +1,121 @@
+import type {
+  SourcingKPI, OTDTrend, RegionalHub, Vendor,
+  AlternativeSupplier, LeadTimeRow, ValueDistRow, ProcessMap,
+  POWip, MacroAlert
+} from '@/types/sourcing';
+
+export const sourcingKPIs: SourcingKPI[] = [
+  { label: 'On-Time Delivery', current: 91.2, target: 95, unit: '%' },
+  { label: 'Avg Compliance Rating', current: 87, target: 90, unit: '/100' },
+  { label: 'Avg TA Score', current: 82, target: 85, unit: '/100' },
+  { label: 'Avg LF Score', current: 79, target: 85, unit: '/100' },
+  { label: '1st-Inspection Pass Rate', current: 88.5, target: 92, unit: '%' },
+  { label: 'Defect Rate', current: 2.3, target: 1.5, unit: '%', lowerIsBetter: true },
+];
+
+export const otdTrend: OTDTrend[] = [
+  { month: 'Mar', otd: 94.1 },
+  { month: 'Apr', otd: 93.8 },
+  { month: 'May', otd: 94.2 },
+  { month: 'Jun', otd: 93.5 },
+  { month: 'Jul', otd: 93.0 },
+  { month: 'Aug', otd: 92.8 },
+  { month: 'Sep', otd: 92.5 },
+  { month: 'Oct', otd: 92.1 },
+  { month: 'Nov', otd: 92.0 },
+  { month: 'Dec', otd: 91.8 },
+  { month: 'Jan', otd: 91.5 },
+  { month: 'Feb', otd: 91.2 },
+];
+
+export const regionalHeatmap: RegionalHub[] = [
+  { region: 'China', hub: 'Shanghai / Zhejiang', otd: 89.0, quality: 86, leadTime: 52, spendPct: 58 },
+  { region: 'Vietnam', hub: 'Ho Chi Minh / Hanoi', otd: 84.0, quality: 91, leadTime: 48, spendPct: 22 },
+  { region: 'India', hub: 'Mumbai / Delhi', otd: 93.0, quality: 83, leadTime: 62, spendPct: 12 },
+  { region: 'Turkey', hub: 'Istanbul / Bursa', otd: 95.0, quality: 88, leadTime: 38, spendPct: 8 },
+];
+
+export const vendors: Vendor[] = [
+  {
+    id: 'SUP-001', name: 'Golden Dragon Ltd', country: 'China', city: 'Zhejiang', region: 'China',
+    annualVolumeEur: 8200000, spendPct: 28.4, categories: ['Home Textile', 'Bedding'],
+    radar: { quality: 86, leadTime: 72, otd: 84, taScore: 78, lfScore: 75, complianceRating: 85, claimRatio: 68 }
+  },
+  {
+    id: 'SUP-002', name: 'Vietnam Exports Co', country: 'Vietnam', city: 'Ho Chi Minh', region: 'Vietnam',
+    annualVolumeEur: 6400000, spendPct: 22.1, categories: ['Apparel', 'Linen'],
+    radar: { quality: 91, leadTime: 80, otd: 83, taScore: 82, lfScore: 81, complianceRating: 88, claimRatio: 85 }
+  },
+  {
+    id: 'SUP-003', name: 'India Export Hub', country: 'India', city: 'Mumbai', region: 'India',
+    annualVolumeEur: 3500000, spendPct: 12.1, categories: ['Cotton', 'DIY'],
+    radar: { quality: 83, leadTime: 65, otd: 93, taScore: 80, lfScore: 77, complianceRating: 82, claimRatio: 79 }
+  },
+  {
+    id: 'SUP-004', name: 'Turkish Textiles', country: 'Turkey', city: 'Istanbul', region: 'Turkey',
+    annualVolumeEur: 2300000, spendPct: 7.9, categories: ['Apparel', 'Home Textile'],
+    radar: { quality: 88, leadTime: 88, otd: 95, taScore: 86, lfScore: 84, complianceRating: 90, claimRatio: 88 }
+  },
+  {
+    id: 'SUP-005', name: 'Pacific Manufacturing', country: 'China', city: 'Guangzhou', region: 'China',
+    annualVolumeEur: 5200000, spendPct: 18.0, categories: ['Electronics', 'DIY'],
+    radar: { quality: 89, leadTime: 70, otd: 88, taScore: 85, lfScore: 82, complianceRating: 87, claimRatio: 84 }
+  },
+];
+
+export const marketNorm: Record<string, number> = {
+  quality: 85, leadTime: 78, otd: 88, taScore: 82,
+  lfScore: 80, complianceRating: 85, claimRatio: 80,
+};
+
+export const alternativeSuppliers: AlternativeSupplier[] = [
+  { id: 'ALT-001', name: 'Hanoi Garment Hub', country: 'Vietnam', city: 'Hanoi', region: 'Vietnam', matchScore: 94, spareCap: 50000, otd: 93, qualityScore: 91, productDNA: ['Linen', 'Home Textile'], yearsExp: 8, status: 'Shortlisted', certifications: ['ISO 9001', 'OEKO-TEX'] },
+  { id: 'ALT-002', name: 'Bengal Weave Co', country: 'Bangladesh', city: 'Dhaka', region: 'South Asia', matchScore: 88, spareCap: 35000, otd: 89, qualityScore: 86, productDNA: ['Cotton', 'Apparel', 'Linen'], yearsExp: 12, status: 'Available', certifications: ['ISO 9001', 'BSCI'] },
+  { id: 'ALT-003', name: 'Colombo Textile Park', country: 'Sri Lanka', city: 'Colombo', region: 'South Asia', matchScore: 82, spareCap: 20000, otd: 91, qualityScore: 88, productDNA: ['Linen', 'Home Textile'], yearsExp: 6, status: 'Available', certifications: ['GOTS', 'OEKO-TEX'] },
+  { id: 'ALT-004', name: 'Suzhou Fabric Masters', country: 'China', city: 'Suzhou', region: 'China', matchScore: 90, spareCap: 45000, otd: 87, qualityScore: 90, productDNA: ['Home Textile', 'Bedding', 'Polyester'], yearsExp: 15, status: 'Under Review', certifications: ['ISO 9001', 'OEKO-TEX'] },
+  { id: 'ALT-005', name: 'Morocco Artisans Ltd', country: 'Morocco', city: 'Casablanca', region: 'North Africa', matchScore: 76, spareCap: 15000, otd: 90, qualityScore: 84, productDNA: ['Cotton', 'Apparel'], yearsExp: 9, status: 'Available', certifications: ['BSCI'] },
+  { id: 'ALT-006', name: 'Izmir Textile Group', country: 'Turkey', city: 'Izmir', region: 'Turkey', matchScore: 85, spareCap: 28000, otd: 94, qualityScore: 87, productDNA: ['Home Textile', 'Linen', 'Cotton'], yearsExp: 11, status: 'Shortlisted', certifications: ['ISO 9001', 'GOTS', 'OEKO-TEX'] },
+  { id: 'ALT-007', name: 'Jakarta Weaving Co', country: 'Indonesia', city: 'Jakarta', region: 'Southeast Asia', matchScore: 79, spareCap: 22000, otd: 88, qualityScore: 85, productDNA: ['Apparel', 'Polyester'], yearsExp: 7, status: 'Available', certifications: ['ISO 9001'] },
+  { id: 'ALT-008', name: 'Cairo Cotton Mills', country: 'Egypt', city: 'Cairo', region: 'North Africa', matchScore: 81, spareCap: 18000, otd: 86, qualityScore: 89, productDNA: ['Cotton', 'Linen', 'Bedding'], yearsExp: 20, status: 'Available', certifications: ['ISO 9001', 'OEKO-TEX', 'GOTS'] },
+];
+
+export const leadTimes: LeadTimeRow[] = [
+  { category: 'Apparel', days: 42, target: 50, bottleneck: 'Sewing' },
+  { category: 'Home Textile', days: 65, target: 50, bottleneck: 'Spinning' },
+  { category: 'DIY', days: 38, target: 50, bottleneck: null },
+  { category: 'Bedding', days: 58, target: 50, bottleneck: 'Dyeing' },
+  { category: 'Outdoor', days: 45, target: 50, bottleneck: null },
+  { category: 'Cotton Basics', days: 35, target: 50, bottleneck: null },
+];
+
+export const valueDistribution: ValueDistRow[] = [
+  { category: 'Home Textile', valueEur: 12400000, pct: 34.1 },
+  { category: 'Apparel', valueEur: 9200000, pct: 25.3 },
+  { category: 'Bedding', valueEur: 6800000, pct: 18.7 },
+  { category: 'DIY', valueEur: 4300000, pct: 11.8 },
+  { category: 'Outdoor', valueEur: 2600000, pct: 7.1 },
+  { category: 'Other', valueEur: 1100000, pct: 3.0 },
+];
+
+export const processMaps: ProcessMap[] = [
+  { category: 'Home Textile', steps: ['Raw Material', 'Spinning', 'Dyeing', 'Weaving', 'Finishing', 'QC', 'Packing', 'Shipping'], bottleneck: 'Spinning' },
+  { category: 'Apparel', steps: ['Raw Material', 'Cutting', 'Sewing', 'Washing', 'QC', 'Packing', 'Shipping'], bottleneck: 'Sewing' },
+  { category: 'Bedding', steps: ['Raw Material', 'Spinning', 'Dyeing', 'Sewing', 'QC', 'Packing', 'Shipping'], bottleneck: 'Dyeing' },
+];
+
+export const poWip: POWip[] = [
+  { id: 'PO-2026-0441', supplier: 'Golden Dragon Ltd', product: 'Linen Bedding Set', valueEur: 185000, dueDate: '2026-03-10', status: 'Overdue', daysOverdue: 10 },
+  { id: 'PO-2026-0392', supplier: 'Vietnam Exports Co', product: 'Cotton Apparel Bundle', valueEur: 142000, dueDate: '2026-03-08', status: 'Overdue', daysOverdue: 12 },
+  { id: 'PO-2026-0415', supplier: 'India Export Hub', product: 'Home Textile Lot', valueEur: 98000, dueDate: '2026-03-15', status: 'Overdue', daysOverdue: 5 },
+  { id: 'PO-2026-0458', supplier: 'Pacific Manufacturing', product: 'DIY Tool Set', valueEur: 210000, dueDate: '2026-03-25', status: 'At Risk', daysOverdue: 0 },
+  { id: 'PO-2026-0467', supplier: 'Golden Dragon Ltd', product: 'Outdoor Cushions', valueEur: 76000, dueDate: '2026-03-28', status: 'At Risk', daysOverdue: 0 },
+  { id: 'PO-2026-0478', supplier: 'Turkish Textiles', product: 'Apparel Spring Range', valueEur: 320000, dueDate: '2026-04-02', status: 'On Track', daysOverdue: 0 },
+  { id: 'PO-2026-0481', supplier: 'Vietnam Exports Co', product: 'Linen Curtain Set', valueEur: 155000, dueDate: '2026-04-05', status: 'On Track', daysOverdue: 0 },
+  { id: 'PO-2026-0490', supplier: 'India Export Hub', product: 'Cotton Basics Q2', valueEur: 88000, dueDate: '2026-04-10', status: 'On Track', daysOverdue: 0 },
+];
+
+export const macroAlerts: MacroAlert[] = [
+  { id: 'MAC-001', type: 'Tariff', severity: 'high', region: 'EU', title: 'EU Carbon Border Adjustment', description: '+3.5% tariff on carbon-intensive imports from non-EU countries effective Q3 2026. Affects ~€4.2M of annual textile imports.', action: 'Review supplier ESG certifications and model landed cost impact.' },
+  { id: 'MAC-002', type: 'Geopolitical', severity: 'medium', region: 'Vietnam', title: 'Vietnam Port Strike Risk', description: 'Labour dispute at Ho Chi Minh City port. Probability of 5-day strike: 35%. Affects 22% of sourcing volume.', action: 'Pre-position 2-week buffer stock for key Vietnam-sourced SKUs.' },
+  { id: 'MAC-003', type: 'Weather', severity: 'low', region: 'India', title: 'India Monsoon Logistics Disruption', description: 'Seasonal monsoon forecast (June–September) may cause +4–6 day lead time extension for Mumbai-origin shipments.', action: 'Advance Q3 India PO schedule by 2 weeks.' },
+];
