@@ -1,0 +1,392 @@
+export interface SupplierFactory {
+  name: string;
+  country: string;
+  ownership: string;
+  otd: number;
+  workers: number;
+  machines: number;
+  leadTime: string;
+  annualOutput: string;
+  firstPassRate: string;
+  defectRate: string;
+  thirdPartyQA: string;
+  auditScore: string;
+  certifications: string[];
+  catalog: Array<{ name: string; desc: string; price: string; moq: string }>;
+}
+
+export interface Supplier {
+  id: string;
+  name: string;
+  country: string;
+  city: string;
+  lat: number;
+  lng: number;
+  address: string;
+  products: string[];
+  productionCapacity: string;
+  annualSpend: string;
+  certificates: string[];
+  riskLevel: 'Low' | 'Medium' | 'High' | 'Critical';
+  contactName: string;
+  contactEmail: string;
+  established: string;
+  employees: string;
+  // Profile data
+  purchaseVolume: string;
+  radarActual: { qual: number; otd: number; lf: number; ta: number; comp: number; cert: number; lt: number };
+  radarNorm: { qual: number; otd: number; lf: number; ta: number; comp: number; cert: number; lt: number };
+  certCoverage: { gots: number; iso: number; bsci: number; smeta: number };
+  kpiScores: { qualityIndex: number; qualityNorm: number; otdScore: number; otdNorm: number; taAvg: number; taNorm: number; lfAvg: number; lfNorm: number };
+  incidentHistory: Array<{ year: string; safety: number; chemical: number; labor: number }>;
+  incidentCauses: Array<{ name: string; value: number }>;
+  factoryMatrix: { taScore: number; lfScore: number; compliance: string; higgScore: number; claimRatio: string };
+  factories: SupplierFactory[];
+}
+
+export const suppliers: Supplier[] = [
+  {
+    id: 'S001',
+    name: 'Hengli Textiles',
+    country: 'China',
+    city: 'Suzhou',
+    lat: 31.298,
+    lng: 120.619,
+    address: '88 Textile Industry Park, Suzhou, Jiangsu, China',
+    products: ['Linen Fabric', 'Cotton Blends', 'Bedding Materials'],
+    productionCapacity: '2,400 MT/month',
+    annualSpend: '€3.2M',
+    certificates: ['OEKO-TEX Standard 100', 'ISO 9001:2015', 'GOTS'],
+    riskLevel: 'Critical',
+    contactName: 'Li Wei',
+    contactEmail: 'liwei@henglitextiles.cn',
+    established: '1998',
+    employees: '2,400',
+    purchaseVolume: '€3.2M',
+    radarActual: { qual: 86, otd: 84, lf: 75, ta: 78, comp: 85, cert: 80, lt: 72 },
+    radarNorm:   { qual: 85, otd: 88, lf: 80, ta: 82, comp: 85, cert: 82, lt: 78 },
+    certCoverage: { gots: 65, iso: 100, bsci: 92, smeta: 88 },
+    kpiScores: { qualityIndex: 86, qualityNorm: 85, otdScore: 84, otdNorm: 88, taAvg: 78, taNorm: 75, lfAvg: 75, lfNorm: 75 },
+    incidentHistory: [
+      { year: '2021', safety: 2, chemical: 1, labor: 3 },
+      { year: '2022', safety: 3, chemical: 2, labor: 4 },
+      { year: '2023', safety: 4, chemical: 1, labor: 4 },
+      { year: '2024', safety: 1, chemical: 0, labor: 1 },
+      { year: '2025', safety: 0, chemical: 0, labor: 0 },
+    ],
+    incidentCauses: [{ name: 'Safety Breach', value: 33 }, { name: 'Chemical Waste', value: 17 }, { name: 'Labor Hours Violation', value: 50 }],
+    factoryMatrix: { taScore: 78.5, lfScore: 82.1, compliance: 'A+', higgScore: 84.5, claimRatio: '0.42%' },
+    factories: [
+      {
+        name: 'Suzhou Mill Hub #01',
+        country: 'China',
+        ownership: 'Self-owned',
+        otd: 96,
+        workers: 450,
+        machines: 120,
+        leadTime: '15 Days',
+        annualOutput: '1.2M Units',
+        firstPassRate: '98.2%',
+        defectRate: '0.12%',
+        thirdPartyQA: '24.5%',
+        auditScore: '82/85',
+        certifications: ['ISO 9001', 'GOTS', 'AMFORI BSCI'],
+        catalog: [
+          { name: 'BCI Cotton Sheet', desc: '140gsm Jersey weave fo...', price: '450K', moq: 'MOQ: 1K' },
+          { name: 'Linen Fitted Sheet', desc: 'Premium linen blend 200...', price: '280K', moq: 'MOQ: 500' },
+          { name: 'Organic Pillowcase Set', desc: 'GOTS certified cotton.', price: '350K', moq: 'MOQ: 1K' },
+        ],
+      },
+      {
+        name: 'Jiangsu Weaving Facility',
+        country: 'China',
+        ownership: 'Contracted',
+        otd: 94,
+        workers: 280,
+        machines: 85,
+        leadTime: '18 Days',
+        annualOutput: '800K Units',
+        firstPassRate: '97.5%',
+        defectRate: '0.18%',
+        thirdPartyQA: '20%',
+        auditScore: '79/85',
+        certifications: ['ISO 9001', 'BSCI'],
+        catalog: [
+          { name: 'Linen Duvet Cover', desc: 'Stonewashed linen, queen', price: '320K', moq: 'MOQ: 500' },
+          { name: 'Cotton Flat Sheet', desc: 'Percale weave 200TC', price: '180K', moq: 'MOQ: 1K' },
+          { name: 'Pillow Protector', desc: 'Waterproof, breathable', price: '120K', moq: 'MOQ: 2K' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'S002',
+    name: 'Zara Home Supply',
+    country: 'China',
+    city: 'Guangzhou',
+    lat: 23.129,
+    lng: 113.264,
+    address: '12 Industrial Zone, Guangzhou, Guangdong, China',
+    products: ['Home Textiles', 'Curtains', 'Cushion Covers'],
+    productionCapacity: '800 MT/month',
+    annualSpend: '€1.8M',
+    certificates: ['ISO 9001:2015', 'BSCI'],
+    riskLevel: 'High',
+    contactName: 'Chen Fang',
+    contactEmail: 'chenfang@zarahomesupply.cn',
+    established: '2003',
+    employees: '980',
+    purchaseVolume: '€1.8M',
+    radarActual: { qual: 80, otd: 78, lf: 70, ta: 72, comp: 75, cert: 65, lt: 80 },
+    radarNorm:   { qual: 82, otd: 85, lf: 78, ta: 78, comp: 80, cert: 75, lt: 80 },
+    certCoverage: { gots: 20, iso: 95, bsci: 85, smeta: 60 },
+    kpiScores: { qualityIndex: 80, qualityNorm: 82, otdScore: 78, otdNorm: 85, taAvg: 72, taNorm: 75, lfAvg: 70, lfNorm: 75 },
+    incidentHistory: [
+      { year: '2021', safety: 3, chemical: 2, labor: 5 },
+      { year: '2022', safety: 4, chemical: 3, labor: 6 },
+      { year: '2023', safety: 5, chemical: 3, labor: 7 },
+      { year: '2024', safety: 2, chemical: 1, labor: 3 },
+      { year: '2025', safety: 1, chemical: 0, labor: 2 },
+    ],
+    incidentCauses: [{ name: 'Safety Breach', value: 28 }, { name: 'Chemical Waste', value: 25 }, { name: 'Labor Hours Violation', value: 47 }],
+    factoryMatrix: { taScore: 72.0, lfScore: 74.5, compliance: 'B+', higgScore: 71.2, claimRatio: '0.85%' },
+    factories: [
+      {
+        name: 'Guangzhou Production Hub',
+        country: 'China',
+        ownership: 'Self-owned',
+        otd: 91,
+        workers: 620,
+        machines: 180,
+        leadTime: '20 Days',
+        annualOutput: '900K Units',
+        firstPassRate: '96.4%',
+        defectRate: '0.28%',
+        thirdPartyQA: '18%',
+        auditScore: '74/85',
+        certifications: ['ISO 9001', 'BSCI'],
+        catalog: [
+          { name: 'Velvet Cushion Cover', desc: 'Soft velvet, 50x50cm', price: '95K', moq: 'MOQ: 2K' },
+          { name: 'Blackout Curtain', desc: 'Triple-weave, energy saving', price: '210K', moq: 'MOQ: 500' },
+          { name: 'Linen Throw Pillow', desc: 'Stonewashed linen fill', price: '140K', moq: 'MOQ: 1K' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'S003',
+    name: 'PakCraft Ltd',
+    country: 'Pakistan',
+    city: 'Karachi',
+    lat: 24.860,
+    lng: 67.010,
+    address: 'Plot 45, SITE Industrial Area, Karachi, Pakistan',
+    products: ['Cotton Towels', 'Bath Linen', 'Rugs'],
+    productionCapacity: '600 MT/month',
+    annualSpend: '€780K',
+    certificates: ['ISO 9001:2015', 'OEKO-TEX'],
+    riskLevel: 'Low',
+    contactName: 'Ahmed Raza',
+    contactEmail: 'ahmed.raza@pakcraft.pk',
+    established: '2010',
+    employees: '620',
+    purchaseVolume: '€780K',
+    radarActual: { qual: 88, otd: 92, lf: 85, ta: 88, comp: 90, cert: 78, lt: 85 },
+    radarNorm:   { qual: 85, otd: 88, lf: 80, ta: 82, comp: 85, cert: 80, lt: 82 },
+    certCoverage: { gots: 40, iso: 100, bsci: 95, smeta: 80 },
+    kpiScores: { qualityIndex: 88, qualityNorm: 85, otdScore: 92, otdNorm: 88, taAvg: 88, taNorm: 82, lfAvg: 85, lfNorm: 80 },
+    incidentHistory: [
+      { year: '2021', safety: 1, chemical: 0, labor: 2 },
+      { year: '2022', safety: 1, chemical: 1, labor: 1 },
+      { year: '2023', safety: 0, chemical: 0, labor: 1 },
+      { year: '2024', safety: 0, chemical: 0, labor: 0 },
+      { year: '2025', safety: 0, chemical: 0, labor: 0 },
+    ],
+    incidentCauses: [{ name: 'Safety Breach', value: 20 }, { name: 'Chemical Waste', value: 10 }, { name: 'Labor Hours Violation', value: 70 }],
+    factoryMatrix: { taScore: 88.0, lfScore: 87.2, compliance: 'A+', higgScore: 89.1, claimRatio: '0.18%' },
+    factories: [
+      {
+        name: 'SITE Karachi Mill #1',
+        country: 'Pakistan',
+        ownership: 'Self-owned',
+        otd: 97,
+        workers: 380,
+        machines: 95,
+        leadTime: '22 Days',
+        annualOutput: '650K Units',
+        firstPassRate: '99.1%',
+        defectRate: '0.08%',
+        thirdPartyQA: '32%',
+        auditScore: '88/90',
+        certifications: ['ISO 9001', 'OEKO-TEX', 'SA8000'],
+        catalog: [
+          { name: 'Combed Cotton Towel', desc: '600gsm, ring-spun combed', price: '180K', moq: 'MOQ: 2K' },
+          { name: 'Bath Sheet Set', desc: 'Extra-large, quick-dry', price: '240K', moq: 'MOQ: 1K' },
+          { name: 'Tufted Bath Rug', desc: 'Anti-slip, absorbent pile', price: '130K', moq: 'MOQ: 1.5K' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'S004',
+    name: 'BlueStar Fabrics',
+    country: 'China',
+    city: 'Hangzhou',
+    lat: 30.274,
+    lng: 120.155,
+    address: '34 Textile Park, Hangzhou, Zhejiang, China',
+    products: ['Polyester Fabric', 'Synthetic Blends', 'Cushion Fill'],
+    productionCapacity: '1,200 MT/month',
+    annualSpend: '€950K',
+    certificates: ['ISO 14001', 'REACH Compliant'],
+    riskLevel: 'High',
+    contactName: 'Wang Jing',
+    contactEmail: 'wangjing@bluestarfabrics.cn',
+    established: '2005',
+    employees: '1,100',
+    purchaseVolume: '€950K',
+    radarActual: { qual: 76, otd: 82, lf: 68, ta: 70, comp: 72, cert: 60, lt: 75 },
+    radarNorm:   { qual: 82, otd: 85, lf: 78, ta: 78, comp: 80, cert: 75, lt: 80 },
+    certCoverage: { gots: 0, iso: 80, bsci: 70, smeta: 45 },
+    kpiScores: { qualityIndex: 76, qualityNorm: 82, otdScore: 82, otdNorm: 85, taAvg: 70, taNorm: 78, lfAvg: 68, lfNorm: 78 },
+    incidentHistory: [
+      { year: '2021', safety: 4, chemical: 5, labor: 4 },
+      { year: '2022', safety: 5, chemical: 6, labor: 5 },
+      { year: '2023', safety: 6, chemical: 7, labor: 6 },
+      { year: '2024', safety: 3, chemical: 4, labor: 3 },
+      { year: '2025', safety: 2, chemical: 2, labor: 2 },
+    ],
+    incidentCauses: [{ name: 'Safety Breach', value: 25 }, { name: 'Chemical Waste', value: 45 }, { name: 'Labor Hours Violation', value: 30 }],
+    factoryMatrix: { taScore: 70.2, lfScore: 68.8, compliance: 'B-', higgScore: 63.4, claimRatio: '1.20%' },
+    factories: [
+      {
+        name: 'Hangzhou Synthetic Plant',
+        country: 'China',
+        ownership: 'Self-owned',
+        otd: 88,
+        workers: 750,
+        machines: 240,
+        leadTime: '14 Days',
+        annualOutput: '2.1M Units',
+        firstPassRate: '95.8%',
+        defectRate: '0.42%',
+        thirdPartyQA: '12%',
+        auditScore: '70/85',
+        certifications: ['ISO 14001', 'REACH'],
+        catalog: [
+          { name: 'Microfibre Fill', desc: 'Recycled PET hollow fibre', price: '75K', moq: 'MOQ: 5K' },
+          { name: 'Polyester Voile', desc: 'Sheer window panel fabric', price: '55K', moq: 'MOQ: 3K' },
+          { name: 'Synthetic Blend Fabric', desc: '65/35 poly-cotton', price: '90K', moq: 'MOQ: 2K' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'S005',
+    name: 'VietSew Factory',
+    country: 'Vietnam',
+    city: 'Ho Chi Minh City',
+    lat: 10.823,
+    lng: 106.630,
+    address: '78 Tan Binh Industrial Zone, Ho Chi Minh City, Vietnam',
+    products: ['Embroidered Linen', 'Table Runners', 'Decorative Textiles'],
+    productionCapacity: '300 MT/month',
+    annualSpend: '€420K',
+    certificates: ['WRAP', 'ISO 9001:2015'],
+    riskLevel: 'Medium',
+    contactName: 'Nguyen Thi Lan',
+    contactEmail: 'lan@vietsew.vn',
+    established: '2012',
+    employees: '380',
+    purchaseVolume: '€420K',
+    radarActual: { qual: 83, otd: 79, lf: 82, ta: 80, comp: 78, cert: 72, lt: 70 },
+    radarNorm:   { qual: 82, otd: 85, lf: 78, ta: 78, comp: 80, cert: 75, lt: 80 },
+    certCoverage: { gots: 30, iso: 90, bsci: 75, smeta: 70 },
+    kpiScores: { qualityIndex: 83, qualityNorm: 82, otdScore: 79, otdNorm: 85, taAvg: 80, taNorm: 78, lfAvg: 82, lfNorm: 78 },
+    incidentHistory: [
+      { year: '2021', safety: 1, chemical: 0, labor: 3 },
+      { year: '2022', safety: 2, chemical: 1, labor: 4 },
+      { year: '2023', safety: 1, chemical: 0, labor: 2 },
+      { year: '2024', safety: 0, chemical: 0, labor: 1 },
+      { year: '2025', safety: 0, chemical: 0, labor: 0 },
+    ],
+    incidentCauses: [{ name: 'Safety Breach', value: 22 }, { name: 'Chemical Waste', value: 8 }, { name: 'Labor Hours Violation', value: 70 }],
+    factoryMatrix: { taScore: 80.5, lfScore: 83.2, compliance: 'A', higgScore: 77.8, claimRatio: '0.55%' },
+    factories: [
+      {
+        name: 'Tan Binh Sewing Hub',
+        country: 'Vietnam',
+        ownership: 'Self-owned',
+        otd: 88,
+        workers: 280,
+        machines: 75,
+        leadTime: '25 Days',
+        annualOutput: '400K Units',
+        firstPassRate: '97.0%',
+        defectRate: '0.22%',
+        thirdPartyQA: '21%',
+        auditScore: '80/85',
+        certifications: ['WRAP', 'ISO 9001'],
+        catalog: [
+          { name: 'Embroidered Table Runner', desc: 'Hand-embroidered linen', price: '110K', moq: 'MOQ: 500' },
+          { name: 'Decorative Cushion', desc: 'Embossed floral motif', price: '135K', moq: 'MOQ: 1K' },
+          { name: 'Linen Placemat Set', desc: '4-piece woven set', price: '80K', moq: 'MOQ: 2K' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'S006',
+    name: 'SilkRoute Co.',
+    country: 'India',
+    city: 'Mumbai',
+    lat: 19.076,
+    lng: 72.878,
+    address: '22 Dharavi Textile District, Mumbai, Maharashtra, India',
+    products: ['Silk Blends', 'Premium Linen', 'Luxury Bedding'],
+    productionCapacity: '150 MT/month',
+    annualSpend: '€560K',
+    certificates: ['SA8000', 'GOTS', 'ISO 9001:2015'],
+    riskLevel: 'Medium',
+    contactName: 'Priya Sharma',
+    contactEmail: 'priya@silkrouteco.in',
+    established: '2007',
+    employees: '290',
+    purchaseVolume: '€560K',
+    radarActual: { qual: 90, otd: 76, lf: 88, ta: 85, comp: 88, cert: 92, lt: 65 },
+    radarNorm:   { qual: 85, otd: 85, lf: 80, ta: 82, comp: 85, cert: 85, lt: 78 },
+    certCoverage: { gots: 90, iso: 100, bsci: 88, smeta: 95 },
+    kpiScores: { qualityIndex: 90, qualityNorm: 85, otdScore: 76, otdNorm: 85, taAvg: 85, taNorm: 82, lfAvg: 88, lfNorm: 80 },
+    incidentHistory: [
+      { year: '2021', safety: 0, chemical: 0, labor: 2 },
+      { year: '2022', safety: 1, chemical: 0, labor: 1 },
+      { year: '2023', safety: 0, chemical: 0, labor: 1 },
+      { year: '2024', safety: 0, chemical: 0, labor: 0 },
+      { year: '2025', safety: 0, chemical: 0, labor: 0 },
+    ],
+    incidentCauses: [{ name: 'Safety Breach', value: 10 }, { name: 'Chemical Waste', value: 5 }, { name: 'Labor Hours Violation', value: 85 }],
+    factoryMatrix: { taScore: 85.0, lfScore: 90.2, compliance: 'A+', higgScore: 91.5, claimRatio: '0.25%' },
+    factories: [
+      {
+        name: 'Mumbai Luxury Atelier',
+        country: 'India',
+        ownership: 'Self-owned',
+        otd: 82,
+        workers: 190,
+        machines: 55,
+        leadTime: '30 Days',
+        annualOutput: '180K Units',
+        firstPassRate: '99.4%',
+        defectRate: '0.05%',
+        thirdPartyQA: '40%',
+        auditScore: '92/95',
+        certifications: ['SA8000', 'GOTS', 'ISO 9001', 'SEDEX'],
+        catalog: [
+          { name: 'Silk-Linen Duvet Cover', desc: 'Premium 50/50 silk-linen', price: '680K', moq: 'MOQ: 200' },
+          { name: 'Luxury Pillow Sham', desc: 'Hand-finished borders', price: '290K', moq: 'MOQ: 500' },
+          { name: 'Cashmere Throw', desc: '100% Mongolian cashmere', price: '950K', moq: 'MOQ: 100' },
+        ],
+      },
+    ],
+  },
+];
